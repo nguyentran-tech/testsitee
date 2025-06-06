@@ -1,0 +1,13 @@
+# netlify.toml
+
+[build]
+  publish = "public" # This is the directory where your static site files are
+  functions = "netlify/functions" # This tells Netlify where to find your serverless functions
+
+# This redirect rule sends ALL requests to your auth-proxy function
+# The function will then decide whether to serve content or ask for auth.
+[[redirects]]
+  from = "/*"       # Match all incoming requests
+  to = "/.netlify/functions/auth-proxy" # Rewrite to your function
+  status = 200      # This is crucial! It means "rewrite" not "redirect".
+                    # The URL in the user's browser stays the same.
